@@ -10,13 +10,10 @@ public static void main(String[] args) {
 
     OrderManager manager = new OrderManager();
 
-    Order order1 = new Order(1, 101, Arrays.asList(1,2), 500.0, "PLACED");
+   System.out.println("working...");
 
-    manager.addOrder(order1);
-
-    for (Order o : manager.getAllOrders()) {
-        System.out.println("Order ID: " + o.getId());
+    
     }
 }
 
-}
+
