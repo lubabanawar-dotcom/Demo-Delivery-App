@@ -1,29 +1,15 @@
 package menu;
+import java.util.List;
 
 public interface MenuRepository {
-	/*
-	package menu;
 
-	import java.util.List;
+    void add(MenuItem item);
 
-	public interface MenuItemRepository {
+    List<MenuItem> getAll();
 
-	void save(MenuItem item);
+    MenuItem getById(int id);
 
-	MenuItem findById(int id);
+    void update(MenuItem item);
 
-	List<MenuItem> findAll();
-
-	void update(MenuItem item);
-
-	void delete(int id);
-
-	boolean exists(int id);
-
-	int count();
-
-	void clear();
-
-	}
-	*/
+    void delete(int id);
 }
