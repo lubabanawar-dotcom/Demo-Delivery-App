@@ -3,15 +3,21 @@ import java.util.ArrayList;
 import java.io.*;
 
 public class UserRepositoryImp implements UserRepository {
-	
-	private String filename = "users.dat";
-	
-	 // ---- Load all users from file ----
+
+    private String filename = "users.dat";
+
+    // ---- Load all users from file ----
     private ArrayList<User> loadUsers() {
         ArrayList<User> users = new ArrayList<>();
 
+        // Check if file exists first
+        File file = new File(filename);
+        if (!file.exists()) {
+            return users; 
+        }
+
         try {
-        	// Open the binary file for reading
+            // Open the binary file for reading
             FileInputStream fis = new FileInputStream(filename);
             ObjectInputStream ois = new ObjectInputStream(fis);
 
@@ -20,19 +26,18 @@ public class UserRepositoryImp implements UserRepository {
 
             // Close the file
             ois.close();
-           
 
         } catch (Exception e) {
-            // file doesn't exist yet - that's okay, just return empty list
+            System.out.println("Error loading users: " + e.getMessage());
         }
 
         return users;
     }
-    
- // ---- Save all users to file ----
+
+    // ---- Save all users to file ----
     private void saveAllUsers(ArrayList<User> users) {
         try {
-        	 // Open the binary file for writing
+            // Open the binary file for writing
             FileOutputStream fos = new FileOutputStream(filename);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
@@ -41,7 +46,6 @@ public class UserRepositoryImp implements UserRepository {
 
             // Close the file
             oos.close();
-
 
         } catch (Exception e) {
             System.out.println("Error saving users: " + e.getMessage());
@@ -60,7 +64,7 @@ public class UserRepositoryImp implements UserRepository {
  // ---- Add user ----
     @Override
     public void addUser(String name, String password, String phone, String role) {
-        ArrayList<User> users = loadUsers();  // step 1 - load existing
+        ArrayList<User> users = loadUsers(); 
         int newId = getNextId();
 
         if (role.equalsIgnoreCase("admin")) {
@@ -69,7 +73,7 @@ public class UserRepositoryImp implements UserRepository {
             users.add(new Customer(newId, name, password, phone));
         }
 
-        saveAllUsers(users);                  // step 2 - save back
+        saveAllUsers(users);                  
         System.out.println("User added successfully!");
     }
     

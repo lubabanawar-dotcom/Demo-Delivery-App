@@ -2,7 +2,7 @@ package user;
 
 //---- Customer Class ----
 public class Customer extends User{
-	Customer(int id, String name, String password, String phone) {
+	public Customer(int id, String name, String password, String phone) {
 		super(id, name, password, phone);
 	}
 	@Override

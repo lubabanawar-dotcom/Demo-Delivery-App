@@ -109,29 +109,28 @@ public class UserManager{
 	 //???
 	 
 	 public void showMenu() {
-	        while (true) {
-	            System.out.println("\n=== User Management ===");
-	            System.out.println("1. Register Customer");
-	            System.out.println("2. Register Admin");
-	            System.out.println("3. View All Users");
-	            System.out.println("4. Update User");
-	            System.out.println("5. Delete User");
-	            System.out.println("6. Login");
-	            System.out.println("0. Back");
-	            System.out.print("Choose: ");
+        while (true) {
+            System.out.println("\n=== User Management ===");
+            System.out.println("1. Register Customer");
+            System.out.println("2. Register Admin");
+            System.out.println("3. View All Users");
+            System.out.println("4. Update User");
+            System.out.println("5. Delete User");
+            System.out.println("6. Login");
+            System.out.println("7. Back");
+            System.out.print("Choose: ");
 
-	            int choice = sc.nextInt();
-	            sc.nextLine();
+            int choice = sc.nextInt();
+            sc.nextLine();
 
-	            if      (choice == 1) addCustomer();
-	            else if (choice == 2) addAdmin();
-	            else if (choice == 3) viewAllUsers();
-	            else if (choice == 4) updateUser();
-	            else if (choice == 5) deleteUser();
-	            else if (choice == 6) login();
-	            else if (choice == 0) break;
-	            else System.out.println("Invalid choice!");
-	        }
-	    }
-	
+            if      (choice == 1) addCustomer();
+            else if (choice == 2) addAdmin();
+            else if (choice == 3) viewAllUsers();
+            else if (choice == 4) updateUser();
+            else if (choice == 5) deleteUser();
+            else if (choice == 6) login();
+            else if (choice == 7) break;
+            else System.out.println("Invalid choice!");
+        }
+    }	
 }

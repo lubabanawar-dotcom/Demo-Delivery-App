@@ -9,7 +9,7 @@ abstract class User implements Serializable{
 	private String phone;
 	
 	//Constructor
-	User(int id, String name, String password, String phone) {
+	public User(int id, String name, String password, String phone) {
         this.id = id;
         this.name = name;
         this.password = password;
@@ -47,10 +47,6 @@ abstract class User implements Serializable{
 		System.out.println("ID     :" +id);
 		System.out.println("Name   :" +name);
 		System.out.println("Phone  :" +phone);
-		displayRole(); 
-		
-		
+		displayRole(); 	
 	}
-	
-	
 }
