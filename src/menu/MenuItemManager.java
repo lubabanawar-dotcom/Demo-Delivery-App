@@ -2,10 +2,10 @@ package menu;
 
 import java.util.List;
 
-public class MenuManager {
+public class MenuItemManager {
     private MenuRepositoryImp repository;
 
-    public MenuManager() {
+    public MenuItemManager() {
         this.repository = new MenuRepositoryImp();
     }
 
