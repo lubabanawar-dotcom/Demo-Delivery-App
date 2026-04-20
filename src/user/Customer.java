@@ -1,9 +1,9 @@
 package user;
 
 //---- Customer Class ----
-class Customer extends User{
-	Customer(int id, String name, String password) {
-		super(id, name, password);
+public class Customer extends User{
+	Customer(int id, String name, String password, String phone) {
+		super(id, name, password, phone);
 	}
 	@Override
 	public void displayRole() {
