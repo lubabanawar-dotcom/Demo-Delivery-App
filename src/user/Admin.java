@@ -2,9 +2,9 @@ package user;
 
 
 //---- Admin class ----
-class Admin extends User{
-	public Admin(int id, String name, String password) {
-     super(id, name, password);
+public class Admin extends User{
+	public Admin(int id, String name, String password, String phone) {
+     super(id, name, password, phone);
  }
 	
  @Override
