@@ -6,19 +6,22 @@ public class DeliveryManager {
 	
 	private DeliveryRepository repository;
 
-    public DeliveryManager() {
+    public DeliveryManager() 
+    {
         this.repository = new DeliveryRepositoryImp();
     }
 
     // Randomly assigns a delivery person ID between 1 and 10
     // Later this will be updated to pick from real delivery persons
-    private int assignDeliveryPerson() {
+    private int assignDeliveryPerson() 
+    {
         Random random = new Random();
         return random.nextInt(10) + 1;
     }
 
     // Create a new delivery
-    public void createDelivery(int orderId, int customerId, String address) {
+    public void createDelivery(int orderId, int customerId, String address) 
+    {
         int newId = repository.findAll().size() + 1;
         Delivery d = new Delivery(newId, orderId, customerId, address);
 
@@ -31,9 +34,11 @@ public class DeliveryManager {
     }
 
     // Update delivery status
-    public void updateStatus(int deliveryId, String newStatus) {
+    public void updateStatus(int deliveryId, String newStatus) 
+    {
         Delivery d = repository.findById(deliveryId);
-        if (d == null) {
+        if (d == null) 
+        {
             System.out.println("Delivery not found!");
             return;
         }
@@ -43,24 +48,29 @@ public class DeliveryManager {
     }
 
     // Mark delivery as on the way
-    public void markOnTheWay(int deliveryId) {
+    public void markOnTheWay(int deliveryId) 
+    {
         updateStatus(deliveryId, "ON_THE_WAY");
     }
 
     // Mark delivery as delivered
-    public void markDelivered(int deliveryId) {
+    public void markDelivered(int deliveryId) 
+    {
         updateStatus(deliveryId, "DELIVERED");
     }
 
     // Mark delivery as failed
-    public void markFailed(int deliveryId) {
+    public void markFailed(int deliveryId) 
+    {
         updateStatus(deliveryId, "FAILED");
     }
 
     // View one delivery
-    public void viewDelivery(int deliveryId) {
+    public void viewDelivery(int deliveryId) 
+    {
         Delivery d = repository.findById(deliveryId);
-        if (d == null) {
+        if (d == null) 
+        {
             System.out.println("Delivery not found!");
             return;
         }
@@ -68,35 +78,43 @@ public class DeliveryManager {
     }
 
     // View all deliveries
-    public void viewAllDeliveries() {
+    public void viewAllDeliveries() 
+    {
         List<Delivery> list = repository.findAll();
-        if (list.isEmpty()) {
+        if (list.isEmpty()) 
+        {
             System.out.println("No deliveries found!");
             return;
         }
-        for (Delivery d : list) {
+        for (Delivery d : list) 
+        {
             d.displayInfo();
             System.out.println("------------------");
         }
     }
 
     // View all deliveries for one customer
-    public void viewCustomerDeliveries(int customerId) {
+    public void viewCustomerDeliveries(int customerId) 
+    {
         List<Delivery> list = repository.findByCustomerId(customerId);
-        if (list.isEmpty()) {
+        if (list.isEmpty())
+        {
             System.out.println("No deliveries found for this customer!");
             return;
         }
-        for (Delivery d : list) {
+        for (Delivery d : list) 
+        {
             d.displayInfo();
             System.out.println("------------------");
         }
     }
 
     // Cancel a delivery
-    public void cancelDelivery(int deliveryId) {
+    public void cancelDelivery(int deliveryId) 
+    {
         Delivery d = repository.findById(deliveryId);
-        if (d == null) {
+        if (d == null) 
+        {
             System.out.println("Delivery not found!");
             return;
         }
@@ -105,9 +123,11 @@ public class DeliveryManager {
     }
 
     // Find delivery by order ID
-    public void viewDeliveryByOrder(int orderId) {
+    public void viewDeliveryByOrder(int orderId) 
+    {
         Delivery d = repository.findByOrderId(orderId);
-        if (d == null) {
+        if (d == null) 
+        {
             System.out.println("No delivery found for Order ID: " + orderId);
             return;
         }

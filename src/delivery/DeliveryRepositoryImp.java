@@ -8,14 +8,18 @@ public class DeliveryRepositoryImp implements DeliveryRepository {
 	private List<Delivery> database = new ArrayList<>();
 
   
-    public void save(Delivery d) {
+    public void save(Delivery d) 
+    {
         database.add(d);
     }
 
 
-    public Delivery findById(int id) {
-        for (Delivery d : database) {
-            if (d.getDeliveryId() == id) {
+    public Delivery findById(int id) 
+    {
+        for (Delivery d : database) 
+        {
+            if (d.getDeliveryId() == id) 
+            {
                 return d;
             }
         }
@@ -23,9 +27,12 @@ public class DeliveryRepositoryImp implements DeliveryRepository {
     }
 
  
-    public Delivery findByOrderId(int orderId) {
-        for (Delivery d : database) {
-            if (d.getOrderId() == orderId) {
+    public Delivery findByOrderId(int orderId) 
+    {
+        for (Delivery d : database) 
+        {
+            if (d.getOrderId() == orderId) 
+            {
                 return d;
             }
         }
@@ -33,10 +40,13 @@ public class DeliveryRepositoryImp implements DeliveryRepository {
     }
 
 
-    public List<Delivery> findByCustomerId(int customerId) {
+    public List<Delivery> findByCustomerId(int customerId)
+    {
         List<Delivery> result = new ArrayList<>();
-        for (Delivery d : database) {
-            if (d.getCustomerId() == customerId) {
+        for (Delivery d : database) 
+        {
+            if (d.getCustomerId() == customerId) 
+            {
                 result.add(d);
             }
         }
@@ -44,14 +54,18 @@ public class DeliveryRepositoryImp implements DeliveryRepository {
     }
 
  
-    public List<Delivery> findAll() {
+    public List<Delivery> findAll() 
+    {
         return new ArrayList<>(database);
     }
 
     
-    public void update(Delivery updated) {
-        for (int i = 0; i < database.size(); i++) {
-            if (database.get(i).getDeliveryId() == updated.getDeliveryId()) {
+    public void update(Delivery updated) 
+    {
+        for (int i = 0; i < database.size(); i++) 
+        {
+            if (database.get(i).getDeliveryId() == updated.getDeliveryId()) 
+            {
                 database.set(i, updated);
                 return;
             }
@@ -59,9 +73,12 @@ public class DeliveryRepositoryImp implements DeliveryRepository {
     }
 
    
-    public void delete(int id) {
-        for (int i = 0; i < database.size(); i++) {
-            if (database.get(i).getDeliveryId() == id) {
+    public void delete(int id) 
+    {
+        for (int i = 0; i < database.size(); i++) 
+        {
+            if (database.get(i).getDeliveryId() == id) 
+            {
                 database.remove(i);
                 return;
             }
