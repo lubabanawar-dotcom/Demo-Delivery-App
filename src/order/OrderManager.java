@@ -60,6 +60,11 @@ public class OrderManager {
 		System.out.println(itemName + " added to Order " + orderId);
 	}
 	
+	//remove item
+	public void removeItemFromOrder() {
+		
+	}
+	
 	//View Order
 	public void viewOrder(int orderId) {
 		Order order = repository.getOrderById(orderId);
@@ -74,12 +79,19 @@ public class OrderManager {
 	
 	///All Orders
 	public void viewAllOrders() {
-		ArrayList<Order> orders = repository.getAllOrders();
-		
-		for(Order order : orders) {
-			order.displayInfo();
-			System.out.println("------------------");
-		}
+	    ArrayList<Order> orders = repository.getAllOrders();
+
+	    // Add this check!
+	    if (orders.isEmpty()) {
+	        System.out.println("No orders found!");
+	        return;
+	    }
+
+	    for (Order order : orders) {
+	        order.displayInfo();
+	        System.out.println("------------------");
+	    }
 	}
+
 }
 
