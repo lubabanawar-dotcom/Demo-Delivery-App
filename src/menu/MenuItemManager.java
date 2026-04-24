@@ -123,5 +123,9 @@ public class MenuItemManager {
             System.out.println("------------------");
         }
     }
+    //added later:
+    public List<MenuItem> viewAllItemsReturn() {
+        return repository.getAll();
+    }
 }
 

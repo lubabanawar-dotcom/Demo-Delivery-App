@@ -105,8 +105,11 @@ public class UserManager{
 	        return u;
 	    }
 	 
-	 //Menu call this from Main.java 
-	 //???
+	 public User login(String name, String password) {
+		    return repository.login(name, password);
+		}
+	 
+	 //Menu call this from Main.java
 	 
 	 public void showMenu() {
         while (true) {
@@ -133,4 +136,13 @@ public class UserManager{
             else System.out.println("Invalid choice!");
         }
     }	
+	 //added later:
+	 public void addCustomer(String name, String password, String phone) {
+		    if (name.trim().isEmpty() || password.trim().isEmpty() || phone.trim().isEmpty()) {
+		        System.out.println("All fields required!");
+		        return;
+		    }
+
+		    repository.addUser(name, password, phone, "customer");
+		}
 }

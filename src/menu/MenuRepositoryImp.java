@@ -1,27 +1,54 @@
 package menu;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MenuRepositoryImp implements MenuRepository {
-    private List<MenuItem> menuItems = new ArrayList<>();
+
+    private String filename = "menu.dat";
+
+    private List<MenuItem> load() {
+        File file = new File(filename);
+
+        if (!file.exists()) return new ArrayList<>();
+
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+            List<MenuItem> list = (List<MenuItem>) ois.readObject();
+            ois.close();
+            return list;
+        } catch (Exception e) {
+            return new ArrayList<>();
+        }
+    }
+
+    private void save(List<MenuItem> list) {
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename));
+            oos.writeObject(list);
+            oos.close();
+        } catch (Exception e) {
+            System.out.println("Error saving menu");
+        }
+    }
 
     @Override
     public void add(MenuItem item) {
-        menuItems.add(item);
+        List<MenuItem> list = load();
+        list.add(item);
+        save(list);
     }
 
     @Override
     public List<MenuItem> getAll() {
-        return menuItems;
+        return load();
     }
 
     @Override
     public MenuItem getById(int id) {
-        for (MenuItem item : menuItems) {
-            if (item.getId() == id) {
-                return item;
-            }
+        for (MenuItem m : load()) {
+            if (m.getId() == id) return m;
         }
         return null;
     }
@@ -29,50 +56,39 @@ public class MenuRepositoryImp implements MenuRepository {
     @Override
     public List<MenuItem> getByCategory(String category) {
         List<MenuItem> result = new ArrayList<>();
-        for (MenuItem item : menuItems) {
-            if (item.getCategory().equals(category) && item.isAvailable()) {
-                result.add(item);
+        for (MenuItem m : load()) {
+            if (m.getCategory().equals(category) && m.isAvailable()) {
+                result.add(m);
             }
         }
         return result;
     }
 
     @Override
-    public void update(MenuItem updatedItem) {
-        for (int i = 0; i < menuItems.size(); i++) {
-            if (menuItems.get(i).getId() == updatedItem.getId()) {
-                menuItems.set(i, updatedItem);
-                return;
+    public void update(MenuItem updated) {
+        List<MenuItem> list = load();
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getId() == updated.getId()) {
+                list.set(i, updated);
+                break;
             }
         }
+
+        save(list);
     }
 
     @Override
     public void delete(int id) {
-        for (int i = 0; i < menuItems.size(); i++) {
-            if (menuItems.get(i).getId() == id) {
-                menuItems.remove(i);
-                return;
-            }
-        }
+        List<MenuItem> list = load();
+        list.removeIf(m -> m.getId() == id);
+        save(list);
     }
 
     @Override
     public void displayMenuByCategory() {
-        String[] categories = {"APPETIZER", "MAIN_COURSE", "DESSERT", "DRINKS", "SIDES", "COMBO_MEAL"};
-
-        for (String category : categories) {
-            System.out.println("\n========== " + category + " ==========");
-            List<MenuItem> items = getByCategory(category);
-
-            if (items.isEmpty()) {
-                System.out.println("No items available in this category.");
-            } else {
-                for (MenuItem item : items) {
-                    System.out.println(item);
-                    System.out.println("------------------");
-                }
-            }
+        for (MenuItem m : load()) {
+            System.out.println(m);
         }
     }
 }
