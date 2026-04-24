@@ -142,5 +142,10 @@ public class UserRepositoryImp implements UserRepository {
         System.out.println("Invalid name or password!");
         return null;
     }
+
+    // ---- Get all users as list (for UI) ----
+    public ArrayList<User> getAllUsersList() {
+        return loadUsers();
+    }
     
 }

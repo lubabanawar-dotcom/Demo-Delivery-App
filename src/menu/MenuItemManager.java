@@ -1,5 +1,6 @@
 package menu;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MenuItemManager {
@@ -123,5 +124,41 @@ public class MenuItemManager {
             System.out.println("------------------");
         }
     }
-}
 
+    // ---- Non-Scanner / UI helper methods ----
+
+    /** Get all menu items as a list. */
+    public ArrayList<MenuItem> getAllMenuItems() {
+        return new ArrayList<>(repository.getAll());
+    }
+
+    /** Get a single menu item by ID. */
+    public MenuItem getItemById(int id) {
+        return repository.getById(id);
+    }
+
+    /** Add a menu item with auto-generated ID. */
+    public void addMenuItem(String name, double price, String category, boolean available, String description) {
+        List<MenuItem> all = repository.getAll();
+        int newId = all.isEmpty() ? 1 : all.get(all.size() - 1).getId() + 1;
+        MenuItem item = new MenuItem(newId, name, price, category, available, description);
+        repository.add(item);
+    }
+
+    /** Update a menu item fully. */
+    public void updateMenuItem(int id, String name, double price, String category, boolean available, String description) {
+        MenuItem item = repository.getById(id);
+        if (item == null) return;
+        item.setName(name);
+        item.setPrice(price);
+        item.setCategory(category);
+        item.setAvailable(available);
+        item.setDescription(description);
+        repository.update(item);
+    }
+
+    /** Delete a menu item by ID. */
+    public void deleteMenuItem(int id) {
+        repository.delete(id);
+    }
+}

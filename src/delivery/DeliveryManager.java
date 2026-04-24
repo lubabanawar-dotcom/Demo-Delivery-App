@@ -133,4 +133,23 @@ public class DeliveryManager {
         }
         d.displayInfo();
     }
-}
+
+    // ---- Non-Scanner API methods for UI ----
+
+    /** Get all deliveries as a list. */
+    public List<Delivery> getAllDeliveries() {
+        return repository.findAll();
+    }
+
+    /** Get deliveries assigned to a specific delivery person. */
+    public List<Delivery> getDeliveriesByPersonId(int personId) {
+        List<Delivery> all = repository.findAll();
+        List<Delivery> result = new java.util.ArrayList<>();
+        for (Delivery d : all) {
+            if (d.getDeliveryPersonId() == personId) {
+                result.add(d);
+            }
+        }
+        return result;
+    }
+}

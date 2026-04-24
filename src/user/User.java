@@ -2,7 +2,7 @@ package user;
 import java.io.Serializable; //if binary file, obj can be saved to binary file
 
 // ---- Abstract class User ----
-abstract class User implements Serializable{
+public abstract class User implements Serializable{
 	private String name;
 	private int id;
 	private String password;

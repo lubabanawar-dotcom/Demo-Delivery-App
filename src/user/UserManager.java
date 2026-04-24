@@ -1,9 +1,8 @@
 package user;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 // ---- User Manager ----
-
-//import java.util.ArrayList;
 
 public class UserManager{
 	
@@ -35,80 +34,74 @@ public class UserManager{
         }
     }
 	
-	
-	
 	//Add admin 
-	 public void addAdmin() {
-	        System.out.print("Enter name     : ");
-	        String name = sc.nextLine();
-	        System.out.print("Enter password : ");
-	        String password = sc.nextLine();
-	        System.out.print("Enter phone    : ");
-	        String phone = sc.nextLine();
+	public void addAdmin() {
+        System.out.print("Enter name     : ");
+        String name = sc.nextLine();
+        System.out.print("Enter password : ");
+        String password = sc.nextLine();
+        System.out.print("Enter phone    : ");
+        String phone = sc.nextLine();
 
-	        try {
-	            if (name.trim().isEmpty() || password.trim().isEmpty() || phone.trim().isEmpty()) {
-	                throw new Exception("All fields are required!");
-	            }
-	            repository.addUser(name, password, phone, "admin");
-	        } catch (Exception e) {
-	            System.out.println("Error: " + e.getMessage());
-	        }
-	    }
+        try {
+            if (name.trim().isEmpty() || password.trim().isEmpty() || phone.trim().isEmpty()) {
+                throw new Exception("All fields are required!");
+            }
+            repository.addUser(name, password, phone, "admin");
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
 	 
+	//View all users
+	public void viewAllUsers() {
+        repository.viewAllUsers();
+    }
 	 
-	 //View all users
-	 public void viewAllUsers() {
-	        repository.viewAllUsers();
-	    }
-	 
-	 //Update user
-	 public void updateUser() {
-	        System.out.print("Enter user ID to update : ");
-	        int id = sc.nextInt();
-	        sc.nextLine();
-	        System.out.print("New name  : ");
-	        String newName = sc.nextLine();
-	        System.out.print("New phone : ");
-	        String newPhone = sc.nextLine();
+	//Update user
+	public void updateUser() {
+        System.out.print("Enter user ID to update : ");
+        int id = sc.nextInt();
+        sc.nextLine();
+        System.out.print("New name  : ");
+        String newName = sc.nextLine();
+        System.out.print("New phone : ");
+        String newPhone = sc.nextLine();
 
-	        try {
-	            if (newName.trim().isEmpty()) {
-	                throw new Exception("Name cannot be empty!");
-	            }
-	            repository.updateUser(id, newName, newPhone);
-	        } catch (Exception e) {
-	            System.out.println("Error: " + e.getMessage());
-	        }
-	    }
+        try {
+            if (newName.trim().isEmpty()) {
+                throw new Exception("Name cannot be empty!");
+            }
+            repository.updateUser(id, newName, newPhone);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
 	 
-	 //Delete user
-	 public void deleteUser() {
-	        System.out.print("Enter user ID to delete : ");
-	        int id = sc.nextInt();
-	        sc.nextLine();
-	        repository.deleteUser(id);
-	    }
+	//Delete user (Scanner-based)
+	public void deleteUser() {
+        System.out.print("Enter user ID to delete : ");
+        int id = sc.nextInt();
+        sc.nextLine();
+        repository.deleteUser(id);
+    }
 	 
-	 //Login
-	 public User login() {
-	        System.out.print("Enter name     : ");
-	        String name = sc.nextLine();
-	        System.out.print("Enter password : ");
-	        String password = sc.nextLine();
+	//Login (Scanner-based)
+	public User login() {
+        System.out.print("Enter name     : ");
+        String name = sc.nextLine();
+        System.out.print("Enter password : ");
+        String password = sc.nextLine();
 
-	        User u = repository.login(name, password);
-	        if (u != null) {
-	            System.out.println("Welcome, " + u.getName() + "!");
-	            u.displayRole();
-	        }
-	        return u;
-	    }
+        User u = repository.login(name, password);
+        if (u != null) {
+            System.out.println("Welcome, " + u.getName() + "!");
+            u.displayRole();
+        }
+        return u;
+    }
 	 
-	 //Menu call this from Main.java 
-	 //???
-	 
-	 public void showMenu() {
+	public void showMenu() {
         while (true) {
             System.out.println("\n=== User Management ===");
             System.out.println("1. Register Customer");
@@ -132,5 +125,38 @@ public class UserManager{
             else if (choice == 7) break;
             else System.out.println("Invalid choice!");
         }
-    }	
+    }
+
+    // ---- Non-Scanner API methods for UI ----
+
+    /** Add a customer directly (no Scanner). */
+    public void addCustomer(String name, String password, String phone) {
+        if (name.trim().isEmpty() || password.trim().isEmpty() || phone.trim().isEmpty()) {
+            throw new IllegalArgumentException("All fields are required!");
+        }
+        repository.addUser(name, password, phone, "customer");
+    }
+
+    /** Add an admin directly (no Scanner). */
+    public void addAdmin(String name, String password, String phone) {
+        if (name.trim().isEmpty() || password.trim().isEmpty() || phone.trim().isEmpty()) {
+            throw new IllegalArgumentException("All fields are required!");
+        }
+        repository.addUser(name, password, phone, "admin");
+    }
+
+    /** Return all users as a list (no Scanner). */
+    public ArrayList<User> getAllUsers() {
+        return ((UserRepositoryImp) repository).getAllUsersList();
+    }
+
+    /** Delete a user by id directly (no Scanner). */
+    public void deleteUser(int id) {
+        repository.deleteUser(id);
+    }
+
+    /** Login directly (no Scanner). */
+    public User login(String name, String password) {
+        return repository.login(name, password);
+    }
 }

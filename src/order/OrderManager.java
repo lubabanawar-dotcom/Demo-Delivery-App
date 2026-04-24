@@ -14,7 +14,7 @@ public class OrderManager {
 	}
 	
 	
-	// Place a new order
+	// Place a new order (Scanner-based)
 	public void placeOrder() {
 		System.out.print("Enter your User ID    : ");
         int userId = sc.nextInt();
@@ -52,7 +52,7 @@ public class OrderManager {
 	
 	
 	
-	// Update Order Status
+	// Update Order Status (Scanner-based)
 	public void updateOrderStatus() {
 		System.out.print("Enter Order ID: ");
         int orderId = sc.nextInt();
@@ -148,7 +148,7 @@ public class OrderManager {
 	}
 	
 	// View all orders
-	 public void viewAllOrders() {
+	public void viewAllOrders() {
         ArrayList<Order> orders = repository.getAllOrders();
 
         if (orders.isEmpty()) {
@@ -162,9 +162,9 @@ public class OrderManager {
         	orders.get(i).displayInfo();
             System.out.println("----------------------");
         }
-	 }
+	}
 	 
-	 public void showMenu() {
+	public void showMenu() {
 		 while(true) {
 			System.out.println("\n=== Order Management ===");
             System.out.println("1. Place Order");
@@ -191,5 +191,44 @@ public class OrderManager {
             else System.out.println("Invalid choice!");
             
 		 } 
-	 }
+	}
+
+    // ---- Non-Scanner API methods for UI ----
+
+    /** Place an order directly (no Scanner). */
+    public void placeOrder(int userId, double totalPrice, ArrayList<String> items) {
+        int newId = repository.getAllOrders().size() + 1;
+        Order newOrder = new Order(newId, userId, totalPrice, "Pending");
+        newOrder.setItemNames(items);
+        repository.saveOrder(newOrder);
+        System.out.println("Order placed! ID: " + newId);
+    }
+
+    /** Update order status directly (no Scanner). */
+    public void updateOrderStatus(int orderId, String newStatus) {
+        Order currentOrder = repository.getOrderById(orderId);
+        if (currentOrder == null) {
+            System.out.println("Order not found ...");
+            return;
+        }
+        currentOrder.setStatus(newStatus);
+        repository.updateOrder(currentOrder);
+    }
+
+    /** Get all orders belonging to a specific user. */
+    public ArrayList<Order> getOrdersByUserId(int userId) {
+        ArrayList<Order> all = repository.getAllOrders();
+        ArrayList<Order> result = new ArrayList<>();
+        for (Order o : all) {
+            if (o.getUserId() == userId) {
+                result.add(o);
+            }
+        }
+        return result;
+    }
+
+    /** Get all orders (no Scanner). */
+    public ArrayList<Order> getAllOrders() {
+        return repository.getAllOrders();
+    }
 }
