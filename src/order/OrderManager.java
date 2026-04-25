@@ -72,4 +72,17 @@ public class OrderManager {
     public ArrayList<Order> getAllOrders() {
         return repository.getAllOrders();
     }
+    
+    //Added later:
+    public ArrayList<Order> getOrdersByUser(int userId) {
+        ArrayList<Order> result = new ArrayList<>();
+
+        for (Order o : repository.getAllOrders()) {
+            if (o.getUserId() == userId) {
+                result.add(o);
+            }
+        }
+
+        return result;
+    }
 }

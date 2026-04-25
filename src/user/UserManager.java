@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 // ---- User Manager ----
 
-//import java.util.ArrayList;
+import java.util.ArrayList;
 
 public class UserManager{
 	
@@ -144,5 +144,16 @@ public class UserManager{
 		    }
 
 		    repository.addUser(name, password, phone, "customer");
+		}
+	 public ArrayList<User> getAllUsers() {
+		    return repository.getAllUsers();
+		}
+	 public void addAdmin(String name, String password, String phone) {
+		    if (name.trim().isEmpty() || password.trim().isEmpty() || phone.trim().isEmpty()) {
+		        System.out.println("All fields required!");
+		        return;
+		    }
+
+		    repository.addUser(name, password, phone, "admin");
 		}
 }

@@ -1,4 +1,5 @@
 package user;
+import java.util.ArrayList;
 
 public interface UserRepository {
 	
@@ -7,5 +8,6 @@ public interface UserRepository {
     void updateUser(int id, String newName, String newPhone);
     void deleteUser(int id);
     User login(String name, String password);
+    ArrayList<User> getAllUsers();
 
 }

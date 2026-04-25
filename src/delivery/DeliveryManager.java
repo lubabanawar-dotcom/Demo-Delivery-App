@@ -133,4 +133,11 @@ public class DeliveryManager {
         }
         d.displayInfo();
     }
+    //added later:
+    public List<Delivery> getAllDeliveries() {
+        return repository.findAll();
+    }
+    public Delivery getDeliveryByOrderId(int orderId) {
+        return repository.findByOrderId(orderId);
+    }
 }
