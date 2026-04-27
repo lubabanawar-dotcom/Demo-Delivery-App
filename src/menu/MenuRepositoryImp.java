@@ -54,17 +54,6 @@ public class MenuRepositoryImp implements MenuRepository {
     }
 
     @Override
-    public List<MenuItem> getByCategory(String category) {
-        List<MenuItem> result = new ArrayList<>();
-        for (MenuItem m : load()) {
-            if (m.getCategory().equals(category) && m.isAvailable()) {
-                result.add(m);
-            }
-        }
-        return result;
-    }
-
-    @Override
     public void update(MenuItem updated) {
         List<MenuItem> list = load();
 
@@ -83,12 +72,5 @@ public class MenuRepositoryImp implements MenuRepository {
         List<MenuItem> list = load();
         list.removeIf(m -> m.getId() == id);
         save(list);
-    }
-
-    @Override
-    public void displayMenuByCategory() {
-        for (MenuItem m : load()) {
-            System.out.println(m);
-        }
     }
 }

@@ -9,123 +9,60 @@ public class MenuItemManager {
         this.repository = new MenuRepositoryImp();
     }
 
-
-    public void addMenuItem(int id, String name, double price, String category, boolean available, String description) {
-        MenuItem item = new MenuItem(id, name, price, category, available, description);
+    // ---------------- Add Menu Item ----------------
+    public void addMenuItem(int id, String name, double price, boolean available) {
+        MenuItem item = new MenuItem(id, name, price, available);
         repository.add(item);
-        System.out.println(name + " added to menu successfully!");
     }
 
- 
+    // ---------------- Remove Menu Item ----------------
     public void removeMenuItem(int id) {
-        MenuItem item = repository.getById(id);
-        if (item == null) {
-            System.out.println("Item not found!");
-            return;
-        }
         repository.delete(id);
-        System.out.println("Item removed successfully!");
     }
 
- 
+    // ---------------- Update Price ----------------
     public void updatePrice(int id, double newPrice) {
         MenuItem item = repository.getById(id);
-        if (item == null) {
-            System.out.println("Item not found!");
-            return;
+        if (item != null) {
+            item.setPrice(newPrice);
+            repository.update(item);
         }
-        item.setPrice(newPrice);
-        repository.update(item);
-        System.out.println("Price updated to " + newPrice + " successfully!");
     }
 
- 
-    public void updateCategory(int id, String newCategory) {
-        MenuItem item = repository.getById(id);
-        if (item == null) {
-            System.out.println("Item not found!");
-            return;
-        }
-        item.setCategory(newCategory);
-        repository.update(item);
-        System.out.println("Category updated successfully!");
-    }
-
-    
-    public void updateDescription(int id, String newDescription) {
-        MenuItem item = repository.getById(id);
-        if (item == null) {
-            System.out.println("Item not found!");
-            return;
-        }
-        item.setDescription(newDescription);
-        repository.update(item);
-        System.out.println("Description updated successfully!");
-    }
-
- 
+    // ---------------- Mark Unavailable ----------------
     public void markUnavailable(int id) {
         MenuItem item = repository.getById(id);
-        if (item == null) {
-            System.out.println("Item not found!");
-            return;
+        if (item != null) {
+            item.setAvailable(false);
+            repository.update(item);
         }
-        item.setAvailable(false);
-        repository.update(item);
-        System.out.println("Item marked as unavailable.");
     }
 
-
+    // ---------------- Mark Available ----------------
     public void markAvailable(int id) {
         MenuItem item = repository.getById(id);
-        if (item == null) {
-            System.out.println("Item not found!");
-            return;
-        }
-        item.setAvailable(true);
-        repository.update(item);
-        System.out.println("Item marked as available.");
-    }
-
-    public void viewItem(int id) {
-        MenuItem item = repository.getById(id);
-        if (item == null) {
-            System.out.println("Item not found!");
-            return;
-        }
-        System.out.println(item);
-    }
-
-    public void viewMenu() {
-        repository.displayMenuByCategory();
-    }
-
-    public void viewByCategory(String category) {
-        List<MenuItem> items = repository.getByCategory(category);
-        if (items.isEmpty()) {
-            System.out.println("No items found in category: " + category);
-            return;
-        }
-        for (MenuItem item : items) {
-            System.out.println(item);
-            System.out.println("------------------");
+        if (item != null) {
+            item.setAvailable(true);
+            repository.update(item);
         }
     }
 
-    public void viewAllItems() {
-        List<MenuItem> items = repository.getAll();
-        if (items.isEmpty()) {
-            System.out.println("No menu items found!");
-            return;
-        }
-        for (MenuItem item : items) {
-            System.out.println(item);
-            System.out.println("------------------");
-        }
-    }
-    //added later:
+    // ---------------- View All ----------------
     public List<MenuItem> viewAllItemsReturn() {
         return repository.getAll();
     }
-}
 
+    // ---------------- Get Next Safe Menu ID ----------------
+    public int getNextMenuId() {
+        List<MenuItem> items = repository.getAll();
+
+        int max = 0;
+        for (MenuItem item : items) {
+            if (item.getId() > max) {
+                max = item.getId();
+            }
+        }
+
+        return max + 1;
+    }
+}

@@ -1,52 +1,65 @@
 package user;
-import java.io.Serializable; //if binary file, obj can be saved to binary file
 
-// ---- Abstract class User ----
-public abstract class User implements Serializable{
-	private String name;
-	private int id;
-	private String password;
-	private String phone;
-	
-	//Constructor
-	public User(int id, String name, String password, String phone) {
+import java.io.Serializable;
+
+public abstract class User implements Serializable {
+    private String name;
+    private int id;
+    private String password;
+    private String phone;
+    private String address;
+
+    public User(int id, String name, String password, String phone, String address) {
         this.id = id;
         this.name = name;
         this.password = password;
-        this.phone= phone;
-	}
-	
-	 // Getters and setters
-    public int getId() { 
-    	return id;
+        this.phone = phone;
+        this.address = address;
     }
-    public String getName() { 
-    	return name; 
+
+    public int getId() {
+        return id;
     }
-    public String getPassword() { 
-    	return password; 
+
+    public String getName() {
+        return name;
     }
-    public String getPhone() { 
-    	return phone; 
+
+    public String getPassword() {
+        return password;
     }
-    public void setName(String name) { 
-    	this.name = name; 
+
+    public String getPhone() {
+        return phone;
     }
-    public void setPassword(String password) { 
-    	this.password = password;
+
+    public String getAddress() {
+        return address;
     }
-    public void setPhone(String phone) { 
-    	this.phone = phone;
+
+    public void setName(String name) {
+        this.name = name;
     }
-	
-    //Abstract Method
-	abstract public void displayRole();
-	
-	//Show user info
-	public void displayInfo() {
-		System.out.println("ID     :" +id);
-		System.out.println("Name   :" +name);
-		System.out.println("Phone  :" +phone);
-		displayRole(); 	
-	}
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public abstract void displayRole();
+
+    public void displayInfo() {
+        System.out.println("ID      : " + id);
+        System.out.println("Name    : " + name);
+        System.out.println("Phone   : " + phone);
+        System.out.println("Address : " + address);
+        displayRole();
+    }
 }

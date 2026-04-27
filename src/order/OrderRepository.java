@@ -8,5 +8,4 @@ public interface OrderRepository {
     ArrayList<Order> getAllOrders();
     void updateOrder(Order order);
     void deleteOrder(int id);
-	
 }

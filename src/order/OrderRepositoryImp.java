@@ -5,8 +5,10 @@ import java.util.ArrayList;
 
 public class OrderRepositoryImp implements OrderRepository {
 
+    // File
     private String filename = "orders.dat";
 
+    // ---- Load Orders ----
     private ArrayList<Order> loadOrders() {
         File file = new File(filename);
 
@@ -25,6 +27,7 @@ public class OrderRepositoryImp implements OrderRepository {
         }
     }
 
+    // ---- Save All Orders ----
     private void saveAllOrders(ArrayList<Order> orders) {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename));
@@ -35,6 +38,7 @@ public class OrderRepositoryImp implements OrderRepository {
         }
     }
 
+    // ---- Save One Order ----
     @Override
     public void saveOrder(Order order) {
         ArrayList<Order> orders = loadOrders();
@@ -42,6 +46,7 @@ public class OrderRepositoryImp implements OrderRepository {
         saveAllOrders(orders);
     }
 
+    // ---- Get Order By ID ----
     @Override
     public Order getOrderById(int id) {
         for (Order order : loadOrders()) {
@@ -52,11 +57,13 @@ public class OrderRepositoryImp implements OrderRepository {
         return null;
     }
 
+    // ---- Get All Orders ----
     @Override
     public ArrayList<Order> getAllOrders() {
         return loadOrders();
     }
 
+    // ---- Update Order ----
     @Override
     public void updateOrder(Order updatedOrder) {
         ArrayList<Order> orders = loadOrders();
@@ -71,6 +78,7 @@ public class OrderRepositoryImp implements OrderRepository {
         saveAllOrders(orders);
     }
 
+    // ---- Delete Order ----
     @Override
     public void deleteOrder(int id) {
         ArrayList<Order> orders = loadOrders();

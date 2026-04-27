@@ -8,8 +8,10 @@ public class DeliveryRepositoryImp implements DeliveryRepository {
 
     private String filename = "delivery.dat";
 
+    // ---- Load ----
     private List<Delivery> load() {
         File file = new File(filename);
+
         if (!file.exists()) return new ArrayList<>();
 
         try {
@@ -22,6 +24,7 @@ public class DeliveryRepositoryImp implements DeliveryRepository {
         }
     }
 
+    // ---- Save ----
     private void save(List<Delivery> list) {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename));
@@ -32,6 +35,7 @@ public class DeliveryRepositoryImp implements DeliveryRepository {
         }
     }
 
+    // ---- Save Delivery ----
     @Override
     public void save(Delivery d) {
         List<Delivery> list = load();
@@ -39,6 +43,7 @@ public class DeliveryRepositoryImp implements DeliveryRepository {
         save(list);
     }
 
+    // ---- Find By ID ----
     @Override
     public Delivery findById(int id) {
         for (Delivery d : load()) {
@@ -47,6 +52,7 @@ public class DeliveryRepositoryImp implements DeliveryRepository {
         return null;
     }
 
+    // ---- Find By Order ID ----
     @Override
     public Delivery findByOrderId(int orderId) {
         for (Delivery d : load()) {
@@ -55,22 +61,27 @@ public class DeliveryRepositoryImp implements DeliveryRepository {
         return null;
     }
 
+    // ---- Find By Customer ID ----
     @Override
     public List<Delivery> findByCustomerId(int customerId) {
         List<Delivery> result = new ArrayList<>();
+
         for (Delivery d : load()) {
             if (d.getCustomerId() == customerId) {
                 result.add(d);
             }
         }
+
         return result;
     }
 
+    // ---- Find All ----
     @Override
     public List<Delivery> findAll() {
         return load();
     }
 
+    // ---- Update ----
     @Override
     public void update(Delivery updated) {
         List<Delivery> list = load();
@@ -85,6 +96,7 @@ public class DeliveryRepositoryImp implements DeliveryRepository {
         save(list);
     }
 
+    // ---- Delete ----
     @Override
     public void delete(int id) {
         List<Delivery> list = load();
