@@ -68,9 +68,9 @@ public class OrderRepositoryImp implements OrderRepository {
     public void updateOrder(Order updatedOrder) {
         ArrayList<Order> orders = loadOrders();
 
-        for (int i = 0; i < orders.size(); i++) {
-            if (orders.get(i).getOrderId() == updatedOrder.getOrderId()) {
-                orders.set(i, updatedOrder);
+        for (Order o : orders) {
+            if (o.getOrderId() == updatedOrder.getOrderId()) {
+                o.setStatus(updatedOrder.getStatus());
                 break;
             }
         }
@@ -78,11 +78,18 @@ public class OrderRepositoryImp implements OrderRepository {
         saveAllOrders(orders);
     }
 
-    // ---- Delete Order ----
+ // ---- Delete Order ----
     @Override
     public void deleteOrder(int id) {
         ArrayList<Order> orders = loadOrders();
-        orders.removeIf(o -> o.getOrderId() == id);
+
+        for (int i = 0; i < orders.size(); i++) {
+            if (orders.get(i).getOrderId() == id) {
+                orders.remove(i);
+                break;
+            }
+        }
+
         saveAllOrders(orders);
     }
 }

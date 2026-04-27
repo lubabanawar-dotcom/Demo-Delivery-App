@@ -309,8 +309,18 @@ public class SimpleUI extends JFrame {
 
             String latestAddress = userManager.getUserById(loggedUser.getId()).getAddress();
 
-            Order placedOrder = orderManager.createOrder(loggedUser.getId(), latestAddress, cartItems, cartTotal);
-            deliveryManager.createDelivery(placedOrder.getOrderId(), loggedUser.getId(), latestAddress);
+            Order placedOrder = orderManager.createOrder(
+                    loggedUser.getId(),
+                    latestAddress,
+                    cartItems,
+                    cartPrices
+            );
+
+            deliveryManager.createDelivery(
+                    placedOrder.getOrderId(),
+                    loggedUser.getId(),
+                    latestAddress
+            );
 
             loadTrackOrder(placedOrder.getOrderId());
 
@@ -397,9 +407,9 @@ public class SimpleUI extends JFrame {
 
         double runningTotal = 0;
 
-        for (int i = 0; i < o.getItemNames().size(); i++) {
+        for (int i = 0; i < o.getItemNames().size() && i < cartPrices.size(); i++) {
             String item = o.getItemNames().get(i);
-            double price = (i < cartPrices.size()) ? cartPrices.get(i) : 0;
+            double price = cartPrices.get(i);
             runningTotal += price;
             trackModel.addRow(new Object[]{item, price});
         }
